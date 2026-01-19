@@ -1,0 +1,6 @@
+{
+    "git.requireGitUserConfig": true,
+    "github.copilot.chat.githubMcpServer.lockdown": false,
+    "github-enterprise.uri": "",
+    "github.copilot.chat.useResponsesApi": false
+}

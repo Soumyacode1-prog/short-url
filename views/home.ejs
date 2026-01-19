@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>URL Shortener</title>
+  <style>
+    body { font-family: Arial, sans-serif; }
+    table { border-collapse: collapse; margin-top: 20px; }
+    th, td { padding: 8px 12px; border: 1px solid #ccc; }
+  </style>
+</head>
+<body>
+
+<h1>URL Shortener</h1>
+
+<% if (typeof id !== "undefined" && id) { %>
+  <p>
+    URL Generated:
+    <a href="/url/<%= id %>" target="_blank">
+      http://localhost:8001/url/<%= id %>
+    </a>
+  </p>
+<% } %>
+
+<form method="POST" action="/url">
+  <label>Enter your Original URL</label><br />
+  <input type="text" name="url" placeholder="https://example.com" required />
+  <button type="submit">Generate</button>
+</form>
+
+<hr>
+
+<% if (typeof urls !== "undefined" && urls && urls.length > 0) { %>
+  <table>
+    <thead>
+      <tr>
+        <th>#</th>
+        <th>Short ID</th>
+        <th>Redirect URL</th>
+        <th>Clicks</th>
+      </tr>
+    </thead>
+    <tbody>
+      <% urls.forEach(function(url, index) { %>
+        <tr>
+          <td><%= index + 1 %></td>
+          <td><%= url.shortId %></td>
+          <td>
+            <a href="/url/<%= url.shortId %>" target="_blank">
+              <%= url.redirectUrl %>
+            </a>
+          </td>
+          <td><%= url.visitHistory ? url.visitHistory.length : 0 %></td>
+        </tr>
+      <% }); %>
+    </tbody>
+  </table>
+<% } else { %>
+  <p>No URLs generated yet.</p>
+<% } %>
+
+</body>
+</html>
